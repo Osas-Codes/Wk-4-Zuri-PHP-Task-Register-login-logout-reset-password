@@ -11,13 +11,12 @@ if(isset($_POST['submit'])){
 function resetPassword($email, $newpassword){
     $file = "../storage/users.csv";
     $read_file = fopen($file, "r");
-    $write_file = fopen($file, "a");
 
         while (($data = fgetcsv($read_file)) !== FALSE) {
             
             if ($data[1] == $email) {
                 $data[2] = $newpassword;
-
+                $write_file = fopen($file, "w");
                 if(($data_amend = fputcsv($write_file, $data)) !==FALSE) {
                     echo '<script> 
                     alert("Successful change of password");
@@ -36,7 +35,7 @@ function resetPassword($email, $newpassword){
     fclose($read_file);
     fclose($write_file);
 }
-echo "HANDLE THIS PAGE";
+// echo "HANDLE THIS PAGE";
 
 session_write_close();
 
